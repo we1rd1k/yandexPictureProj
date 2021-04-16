@@ -6,7 +6,6 @@ import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.То;
 import io.cucumber.java.ru.Тогда;
 import lombok.extern.slf4j.Slf4j;
-import ru.mail.at.BaseStep;
 
 import java.io.File;
 
@@ -15,6 +14,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static ru.mail.at.stepdef.BaseStep.getImage;
 
 @Slf4j
 public class StepDefYandexImagePage {
@@ -42,8 +42,8 @@ public class StepDefYandexImagePage {
 
     @Когда("Когда загружаем картинку для поиска")
     public void когдаЗагружаемКартинкуДляПоиска() {
-        log.info("Когда загружаем картинку {} для поиска", BaseStep.getImage().get());
-        $x("//input[@type='file']").uploadFile(new File("src\\test\\resources\\images\\" + BaseStep.getImage().get() + ".jpg"));
+        log.info("Когда загружаем картинку {} для поиска", getImage().get());
+        $x("//input[@type='file']").uploadFile(new File("src\\test\\resources\\images\\" + getImage().get() + ".jpg"));
     }
 
     @И("Кликаем по кнопке найти")
@@ -55,6 +55,6 @@ public class StepDefYandexImagePage {
         log.info("Проверяем, что в блоке \"Кажется на изображении есть\" присутствует слово");
         $x("//div[text()='Кажется, на изображении']").waitUntil(visible, 7000);
         assertTrue($$x("//div[text()='Кажется, на изображении']/following-sibling::div//a/span").texts()
-                .stream().anyMatch(x -> x.matches("^.*" + BaseStep.getImage().get() + ".*$")), BaseStep.getImage().get() + " отсутсвует в блоке");
+                .stream().anyMatch(x -> x.matches("^.*" + getImage().get() + ".*$")), getImage().get() + " отсутсвует в блоке");
     }
 }

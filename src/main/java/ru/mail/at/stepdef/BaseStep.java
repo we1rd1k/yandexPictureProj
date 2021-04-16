@@ -1,4 +1,4 @@
-package ru.mail.at;
+package ru.mail.at.stepdef;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
@@ -32,7 +32,6 @@ public class BaseStep {
     public void изображениеДляПоиска(String imageName) {
         image.set(imageName);
     }
-
     public static ThreadLocal<String> getImage() {
         return image;
     }
